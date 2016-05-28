@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.map.dao.SchoolDAO">
+  <resultMap id="BaseResultMap" type="com.map.pojo.School">
+    <id column="s_id" jdbcType="VARCHAR" property="sId" />
+    <result column="s_name" jdbcType="VARCHAR" property="sName" />
+    <result column="s_address" jdbcType="VARCHAR" property="sAddress" />
+    <result column="s_character" jdbcType="VARCHAR" property="sCharacter" />
+    <result column="s_type" jdbcType="VARCHAR" property="sType" />
+    <result column="s_score" jdbcType="VARCHAR" property="sScore" />
+    <result column="s_description" jdbcType="VARCHAR" property="sDescription" />
+    <result column="s_scaleParam" jdbcType="INTEGER" property="sScaleparam" />
+    <result column="s_middlePoint" jdbcType="VARCHAR" property="sMiddlepoint" />
+    <result column="s_url" jdbcType="VARCHAR" property="sUrl" />
+    <result column="s_phone" jdbcType="VARCHAR" property="sPhone" />
+    <result column="s_addTime" jdbcType="TIMESTAMP" property="sAddtime" />
+    <result column="s_addAdmin" jdbcType="VARCHAR" property="sAddadmin" />
+    <result column="s_updateTime" jdbcType="TIMESTAMP" property="sUpdatetime" />
+    <result column="s_updateAdmin" jdbcType="VARCHAR" property="sUpdateadmin" />
+     <association property="schoolAreaSchoolMapping" javaType="com.map.pojo.SchoolAreaSchoolMapping">
+    	<id column="sa_id" property="saId" jdbcType="VARCHAR" />
+    	<id column="s_id" property="sId" jdbcType="VARCHAR" />
+    	<result column="m_addTime" property="mAddtime" jdbcType="TIMESTAMP" />
+    	<result column="m_addAdmin" property="mAddadmin" jdbcType="VARCHAR" />
+    	<result column="m_updateTime" property="mUpdatetime" jdbcType="TIMESTAMP" />
+    	<result column="m_updateAdmin" property="mUpdateadmin" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.map.pojo.School">
+    <result column="s_points" jdbcType="LONGVARCHAR" property="sPoints" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    school.s_id, s_name, s_address, s_character, s_type, s_score, s_description, s_scaleParam, 
+    s_middlePoint, s_url, s_phone, s_addTime, s_addAdmin, s_updateTime, s_updateAdmin
+  </sql>
+  <sql id="Blob_Column_List">
+    s_points
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />, schoolarea_school_mapping.sa_id
+    from school,schoolarea_school_mapping
+    where school.s_id=schoolarea_school_mapping.s_id AND school.s_id = #{sId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByType"  resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
+    select 
+    s_id,s_name
+    from school
+    where s_type=#{sType,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll"  resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />, schoolarea_school_mapping.sa_id
+    from school,schoolarea_school_mapping
+    where school.s_id=schoolarea_school_mapping.s_id
+  </select>
+  <select id="selectAllBySaId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />, schoolarea_school_mapping.sa_id
+    from school,schoolarea_school_mapping
+    where school.s_id=schoolarea_school_mapping.s_id AND schoolarea_school_mapping.sa_id = #{saId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="simpleSelectAllBySaId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    school.s_id, s_name, s_updateTime
+    from school,schoolarea_school_mapping
+    where school.s_id=schoolarea_school_mapping.s_id AND schoolarea_school_mapping.sa_id = #{saId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from school
+    where s_id = #{sId,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.map.pojo.School">
+    insert into school
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sId != null">
+        s_id,
+      </if>
+      <if test="sName != null">
+        s_name,
+      </if>
+      <if test="sAddress != null">
+        s_address,
+      </if>
+      <if test="sCharacter != null">
+        s_character,
+      </if>
+      <if test="sType != null">
+        s_type,
+      </if>
+      <if test="sScore != null">
+        s_score,
+      </if>
+      <if test="sDescription != null">
+        s_description,
+      </if>
+      <if test="sScaleparam != null">
+        s_scaleParam,
+      </if>
+      <if test="sMiddlepoint != null">
+        s_middlePoint,
+      </if>
+      <if test="sUrl != null">
+        s_url,
+      </if>
+      <if test="sPhone != null">
+        s_phone,
+      </if>
+      <if test="sAddtime != null">
+        s_addTime,
+      </if>
+      <if test="sAddadmin != null">
+        s_addAdmin,
+      </if>
+      <if test="sUpdatetime != null">
+        s_updateTime,
+      </if>
+      <if test="sUpdateadmin != null">
+        s_updateAdmin,
+      </if>
+      <if test="sPoints != null">
+        s_points,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sId != null">
+        #{sId,jdbcType=VARCHAR},
+      </if>
+      <if test="sName != null">
+        #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="sAddress != null">
+        #{sAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="sCharacter != null">
+        #{sCharacter,jdbcType=VARCHAR},
+      </if>
+      <if test="sType != null">
+        #{sType,jdbcType=VARCHAR},
+      </if>
+      <if test="sScore != null">
+        #{sScore,jdbcType=VARCHAR},
+      </if>
+      <if test="sDescription != null">
+        #{sDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="sScaleparam != null">
+        #{sScaleparam,jdbcType=INTEGER},
+      </if>
+      <if test="sMiddlepoint != null">
+        #{sMiddlepoint,jdbcType=VARCHAR},
+      </if>
+      <if test="sUrl != null">
+        #{sUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sPhone != null">
+        #{sPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="sAddtime != null">
+        #{sAddtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sAddadmin != null">
+        #{sAddadmin,jdbcType=VARCHAR},
+      </if>
+      <if test="sUpdatetime != null">
+        #{sUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sUpdateadmin != null">
+        #{sUpdateadmin,jdbcType=VARCHAR},
+      </if>
+      <if test="sPoints != null">
+        #{sPoints,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.map.pojo.School">
+    update school
+    <set>
+      <if test="sName != null">
+        s_name = #{sName,jdbcType=VARCHAR},
+      </if>
+      <if test="sAddress != null">
+        s_address = #{sAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="sCharacter != null">
+        s_character = #{sCharacter,jdbcType=VARCHAR},
+      </if>
+      <if test="sType != null">
+        s_type = #{sType,jdbcType=VARCHAR},
+      </if>
+      <if test="sScore != null">
+        s_score = #{sScore,jdbcType=VARCHAR},
+      </if>
+      <if test="sDescription != null">
+        s_description = #{sDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="sScaleparam != null">
+        s_scaleParam = #{sScaleparam,jdbcType=INTEGER},
+      </if>
+      <if test="sMiddlepoint != null">
+        s_middlePoint = #{sMiddlepoint,jdbcType=VARCHAR},
+      </if>
+      <if test="sUrl != null">
+        s_url = #{sUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="sPhone != null">
+        s_phone = #{sPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="sAddtime != null">
+        s_addTime = #{sAddtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sAddadmin != null">
+        s_addAdmin = #{sAddadmin,jdbcType=VARCHAR},
+      </if>
+      <if test="sUpdatetime != null">
+        s_updateTime = #{sUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sUpdateadmin != null">
+        s_updateAdmin = #{sUpdateadmin,jdbcType=VARCHAR},
+      </if>
+      <if test="sPoints != null">
+        s_points = #{sPoints,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where s_id = #{sId,jdbcType=VARCHAR}
+  </update>
+</mapper>

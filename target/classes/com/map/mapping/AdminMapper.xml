@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.map.dao.AdminDAO" >
+  <resultMap id="BaseResultMap" type="com.map.pojo.Admin" >
+    <id column="a_username" property="aUsername" jdbcType="VARCHAR" />
+    <result column="a_password" property="aPassword" jdbcType="VARCHAR" />
+    <result column="a_email" property="aEmail" jdbcType="VARCHAR" />
+    <result column="a_addTime" property="aAddtime" jdbcType="TIMESTAMP" />
+    <result column="a_updateTime" property="aUpdatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    a_username, a_password, a_email, a_addTime, a_updateTime
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from admin
+    where a_username = #{aUsername,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from admin
+    where a_username = #{aUsername,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.map.pojo.Admin" >
+    insert into admin (a_username, a_password, a_email, 
+      a_addTime, a_updateTime)
+    values (#{aUsername,jdbcType=VARCHAR}, #{aPassword,jdbcType=VARCHAR}, #{aEmail,jdbcType=VARCHAR}, 
+      #{aAddtime,jdbcType=TIMESTAMP}, #{aUpdatetime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.map.pojo.Admin" >
+    insert into admin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="aUsername != null" >
+        a_username,
+      </if>
+      <if test="aPassword != null" >
+        a_password,
+      </if>
+      <if test="aEmail != null" >
+        a_email,
+      </if>
+      <if test="aAddtime != null" >
+        a_addTime,
+      </if>
+      <if test="aUpdatetime != null" >
+        a_updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="aUsername != null" >
+        #{aUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="aPassword != null" >
+        #{aPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="aEmail != null" >
+        #{aEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="aAddtime != null" >
+        #{aAddtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="aUpdatetime != null" >
+        #{aUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.map.pojo.Admin" >
+    update admin
+    <set >
+      <if test="aPassword != null" >
+        a_password = #{aPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="aEmail != null" >
+        a_email = #{aEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="aAddtime != null" >
+        a_addTime = #{aAddtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="aUpdatetime != null" >
+        a_updateTime = #{aUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where a_username = #{aUsername,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.map.pojo.Admin" >
+    update admin
+    set a_password = #{aPassword,jdbcType=VARCHAR},
+      a_email = #{aEmail,jdbcType=VARCHAR},
+      a_addTime = #{aAddtime,jdbcType=TIMESTAMP},
+      a_updateTime = #{aUpdatetime,jdbcType=TIMESTAMP}
+    where a_username = #{aUsername,jdbcType=VARCHAR}
+  </update>
+</mapper>

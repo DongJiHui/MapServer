@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.map.dao.ResourceDAO" >
+  <resultMap id="BaseResultMap" type="com.map.pojo.EduResource" >
+    <id column="r_id" property="rId" jdbcType="VARCHAR" />
+    <result column="r_name" property="rName" jdbcType="VARCHAR" />
+    <result column="r_address" property="rAddress" jdbcType="VARCHAR" />
+    <result column="r_type" property="rType" jdbcType="VARCHAR" />
+    <result column="r_score" property="rScore" jdbcType="VARCHAR" />
+    <result column="r_description" property="rDescription" jdbcType="VARCHAR" />
+    <result column="r_scaleParam" property="rScaleparam" jdbcType="INTEGER" />
+    <result column="r_middlePoint" property="rMiddlepoint" jdbcType="VARCHAR" />
+    <result column="r_url" property="rUrl" jdbcType="VARCHAR" />
+    <result column="r_phone" property="rPhone" jdbcType="VARCHAR" />
+    <result column="r_addTime" property="rAddtime" jdbcType="TIMESTAMP" />
+    <result column="r_addAdmin" property="rAddadmin" jdbcType="VARCHAR" />
+    <result column="r_updateTime" property="rUpdatetime" jdbcType="TIMESTAMP" />
+    <result column="r_updateAdmin" property="rUpdateadmin" jdbcType="VARCHAR" />
+    <association property="schoolAreaResourceMapping" javaType="com.map.pojo.SchoolAreaResourceMapping">
+    	<id column="sa_id" property="saId" jdbcType="VARCHAR" />
+    	<id column="r_id" property="rId" jdbcType="VARCHAR" />
+    	<result column="m_addTime" property="mAddtime" jdbcType="TIMESTAMP" />
+    	<result column="m_addAdmin" property="mAddadmin" jdbcType="VARCHAR" />
+    	<result column="m_updateTime" property="mUpdatetime" jdbcType="TIMESTAMP" />
+    	<result column="m_updateAdmin" property="mUpdateadmin" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.map.pojo.EduResource" extends="BaseResultMap" >
+    <result column="r_points" property="rPoints" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    resource.r_id, r_name, r_address, r_type, r_score, r_description, r_scaleParam, r_middlePoint, 
+    r_url, r_phone, r_addTime, r_addAdmin, r_updateTime, r_updateAdmin
+  </sql>
+  <sql id="Blob_Column_List" >
+    r_points
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />, schoolarea_resource_mapping.sa_id
+    from resource,schoolarea_resource_mapping
+    where resource.r_id=schoolarea_resource_mapping.r_id AND resource.r_id = #{rId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectByType"  resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
+    select 
+    r_id,r_name
+    from resource
+    where r_type=#{rType,jdbcType=VARCHAR}
+  </select>
+   <select id="selectAllBySaId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />, schoolarea_resource_mapping.sa_id
+    from resource,schoolarea_resource_mapping
+    where resource.r_id=schoolarea_resource_mapping.r_id AND schoolarea_resource_mapping.sa_id = #{saId,jdbcType=VARCHAR}
+  </select>
+  <select id="simpleSelectAllBySaId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    resource.r_id, r_name, r_updateTime
+    from resource,schoolarea_resource_mapping
+    where resource.r_id=schoolarea_resource_mapping.r_id AND schoolarea_resource_mapping.sa_id = #{saId,jdbcType=VARCHAR}
+  </select>
+   <select id="selectAll"  resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />, schoolarea_resource_mapping.sa_id
+    from resource,schoolarea_resource_mapping
+    where resource.r_id=schoolarea_resource_mapping.r_id
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from resource
+    where r_id = #{rId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.map.pojo.EduResource" >
+    insert into resource
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rId != null" >
+        r_id,
+      </if>
+      <if test="rName != null" >
+        r_name,
+      </if>
+      <if test="rAddress != null" >
+        r_address,
+      </if>
+      <if test="rType != null" >
+        r_type,
+      </if>
+      <if test="rScore != null" >
+        r_score,
+      </if>
+      <if test="rDescription != null" >
+        r_description,
+      </if>
+      <if test="rScaleparam != null" >
+        r_scaleParam,
+      </if>
+      <if test="rMiddlepoint != null" >
+        r_middlePoint,
+      </if>
+      <if test="rUrl != null" >
+        r_url,
+      </if>
+      <if test="rPhone != null" >
+        r_phone,
+      </if>
+      <if test="rAddtime != null" >
+        r_addTime,
+      </if>
+      <if test="rAddadmin != null" >
+        r_addAdmin,
+      </if>
+      <if test="rUpdatetime != null" >
+        r_updateTime,
+      </if>
+      <if test="rUpdateadmin != null" >
+        r_updateAdmin,
+      </if>
+      <if test="rPoints != null" >
+        r_points,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rId != null" >
+        #{rId,jdbcType=VARCHAR},
+      </if>
+      <if test="rName != null" >
+        #{rName,jdbcType=VARCHAR},
+      </if>
+      <if test="rAddress != null" >
+        #{rAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="rType != null" >
+        #{rType,jdbcType=VARCHAR},
+      </if>
+      <if test="rScore != null" >
+        #{rScore,jdbcType=VARCHAR},
+      </if>
+      <if test="rDescription != null" >
+        #{rDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="rScaleparam != null" >
+        #{rScaleparam,jdbcType=INTEGER},
+      </if>
+      <if test="rMiddlepoint != null" >
+        #{rMiddlepoint,jdbcType=VARCHAR},
+      </if>
+      <if test="rUrl != null" >
+        #{rUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="rPhone != null" >
+        #{rPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="rAddtime != null" >
+        #{rAddtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rAddadmin != null" >
+        #{rAddadmin,jdbcType=VARCHAR},
+      </if>
+      <if test="rUpdatetime != null" >
+        #{rUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rUpdateadmin != null" >
+        #{rUpdateadmin,jdbcType=VARCHAR},
+      </if>
+      <if test="rPoints != null" >
+        #{rPoints,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.map.pojo.EduResource" >
+    update resource
+    set r_name = #{rName,jdbcType=VARCHAR},
+      r_address = #{rAddress,jdbcType=VARCHAR},
+      r_type = #{rType,jdbcType=VARCHAR},
+      r_score = #{rScore,jdbcType=VARCHAR},
+      r_description = #{rDescription,jdbcType=VARCHAR},
+      r_scaleParam = #{rScaleparam,jdbcType=INTEGER},
+      r_middlePoint = #{rMiddlepoint,jdbcType=VARCHAR},
+      r_url = #{rUrl,jdbcType=VARCHAR},
+      r_phone = #{rPhone,jdbcType=VARCHAR},
+      r_addTime = #{rAddtime,jdbcType=TIMESTAMP},
+      r_addAdmin = #{rAddadmin,jdbcType=VARCHAR},
+      r_updateTime = #{rUpdatetime,jdbcType=TIMESTAMP},
+      r_updateAdmin = #{rUpdateadmin,jdbcType=VARCHAR},
+      r_points = #{rPoints,jdbcType=LONGVARCHAR}
+    where r_id = #{rId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.map.pojo.EduResource" >
+    update resource
+    set r_name = #{rName,jdbcType=VARCHAR},
+      r_address = #{rAddress,jdbcType=VARCHAR},
+      r_type = #{rType,jdbcType=VARCHAR},
+      r_score = #{rScore,jdbcType=VARCHAR},
+      r_description = #{rDescription,jdbcType=VARCHAR},
+      r_scaleParam = #{rScaleparam,jdbcType=INTEGER},
+      r_middlePoint = #{rMiddlepoint,jdbcType=VARCHAR},
+      r_url = #{rUrl,jdbcType=VARCHAR},
+      r_phone = #{rPhone,jdbcType=VARCHAR},
+      r_addTime = #{rAddtime,jdbcType=TIMESTAMP},
+      r_addAdmin = #{rAddadmin,jdbcType=VARCHAR},
+      r_updateTime = #{rUpdatetime,jdbcType=TIMESTAMP},
+      r_updateAdmin = #{rUpdateadmin,jdbcType=VARCHAR}
+    where r_id = #{rId,jdbcType=VARCHAR}
+  </update>
+</mapper>

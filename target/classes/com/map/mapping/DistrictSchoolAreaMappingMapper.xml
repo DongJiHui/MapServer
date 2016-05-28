@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.map.dao.DistrictSchoolAreaMappingDAO" >
+  <resultMap id="BaseResultMap" type="com.map.pojo.DistrictSchoolAreaMapping" >
+    <id column="d_id" property="dId" jdbcType="VARCHAR" />
+    <id column="sa_id" property="saId" jdbcType="VARCHAR" />
+    <result column="m_addTime" property="mAddtime" jdbcType="TIMESTAMP" />
+    <result column="m_addAdmin" property="mAddadmin" jdbcType="VARCHAR" />
+    <result column="m_upadateTime" property="mUpadatetime" jdbcType="TIMESTAMP" />
+    <result column="m_updateAdmin" property="mUpdateadmin" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    d_id, sa_id, m_addTime, m_addAdmin, m_upadateTime, m_updateAdmin
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.map.pojo.DistrictSchoolAreaMappingKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from district_schoolarea_mapping
+    where d_id = #{dId,jdbcType=VARCHAR}
+      and sa_id = #{saId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.map.pojo.DistrictSchoolAreaMappingKey" >
+    delete from district_schoolarea_mapping
+    where d_id = #{dId,jdbcType=VARCHAR}
+      and sa_id = #{saId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.map.pojo.DistrictSchoolAreaMapping" >
+    insert into district_schoolarea_mapping (d_id, sa_id, m_addTime, 
+      m_addAdmin, m_upadateTime, m_updateAdmin
+      )
+    values (#{dId,jdbcType=VARCHAR}, #{saId,jdbcType=VARCHAR}, #{mAddtime,jdbcType=TIMESTAMP}, 
+      #{mAddadmin,jdbcType=VARCHAR}, #{mUpadatetime,jdbcType=TIMESTAMP}, #{mUpdateadmin,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.map.pojo.DistrictSchoolAreaMapping" >
+    insert into district_schoolarea_mapping
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dId != null" >
+        d_id,
+      </if>
+      <if test="saId != null" >
+        sa_id,
+      </if>
+      <if test="mAddtime != null" >
+        m_addTime,
+      </if>
+      <if test="mAddadmin != null" >
+        m_addAdmin,
+      </if>
+      <if test="mUpadatetime != null" >
+        m_upadateTime,
+      </if>
+      <if test="mUpdateadmin != null" >
+        m_updateAdmin,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dId != null" >
+        #{dId,jdbcType=VARCHAR},
+      </if>
+      <if test="saId != null" >
+        #{saId,jdbcType=VARCHAR},
+      </if>
+      <if test="mAddtime != null" >
+        #{mAddtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mAddadmin != null" >
+        #{mAddadmin,jdbcType=VARCHAR},
+      </if>
+      <if test="mUpadatetime != null" >
+        #{mUpadatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mUpdateadmin != null" >
+        #{mUpdateadmin,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateBySaid" parameterType="com.map.pojo.DistrictSchoolAreaMapping" >
+    update district_schoolarea_mapping
+    <set >
+      <if test="dId != null" >
+        d_id = #{dId,jdbcType=VARCHAR},
+      </if>
+      <if test="mAddtime != null" >
+        m_addTime = #{mAddtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mAddadmin != null" >
+        m_addAdmin = #{mAddadmin,jdbcType=VARCHAR},
+      </if>
+      <if test="mUpadatetime != null" >
+        m_upadateTime = #{mUpadatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mUpdateadmin != null" >
+        m_updateAdmin = #{mUpdateadmin,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sa_id = #{saId,jdbcType=VARCHAR}
+  </update>
+</mapper>

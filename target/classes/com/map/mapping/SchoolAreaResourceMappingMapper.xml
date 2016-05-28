@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.map.dao.SchoolAreaResourceMappingDAO" >
+  <resultMap id="BaseResultMap" type="com.map.pojo.SchoolAreaResourceMapping" >
+    <id column="sa_id" property="saId" jdbcType="VARCHAR" />
+    <id column="r_id" property="rId" jdbcType="VARCHAR" />
+    <result column="m_addTime" property="mAddtime" jdbcType="TIMESTAMP" />
+    <result column="m_addAdmin" property="mAddadmin" jdbcType="VARCHAR" />
+    <result column="m_updateTime" property="mUpdatetime" jdbcType="TIMESTAMP" />
+    <result column="m_updateAdmin" property="mUpdateadmin" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    sa_id, r_id, m_addTime, m_addAdmin, m_updateTime, m_updateAdmin
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.map.pojo.SchoolAreaResourceMappingKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from schoolarea_resource_mapping
+    where sa_id = #{saId,jdbcType=VARCHAR}
+      and r_id = #{rId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.map.pojo.SchoolAreaResourceMappingKey" >
+    delete from schoolarea_resource_mapping
+    where sa_id = #{saId,jdbcType=VARCHAR}
+      and r_id = #{rId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.map.pojo.SchoolAreaResourceMapping" >
+    insert into schoolarea_resource_mapping (sa_id, r_id, m_addTime, 
+      m_addAdmin, m_updateTime, m_updateAdmin
+      )
+    values (#{saId,jdbcType=VARCHAR}, #{rId,jdbcType=VARCHAR}, #{mAddtime,jdbcType=TIMESTAMP}, 
+      #{mAddadmin,jdbcType=VARCHAR}, #{mUpdatetime,jdbcType=TIMESTAMP}, #{mUpdateadmin,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.map.pojo.SchoolAreaResourceMapping" >
+    insert into schoolarea_resource_mapping
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="saId != null" >
+        sa_id,
+      </if>
+      <if test="rId != null" >
+        r_id,
+      </if>
+      <if test="mAddtime != null" >
+        m_addTime,
+      </if>
+      <if test="mAddadmin != null" >
+        m_addAdmin,
+      </if>
+      <if test="mUpdatetime != null" >
+        m_updateTime,
+      </if>
+      <if test="mUpdateadmin != null" >
+        m_updateAdmin,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="saId != null" >
+        #{saId,jdbcType=VARCHAR},
+      </if>
+      <if test="rId != null" >
+        #{rId,jdbcType=VARCHAR},
+      </if>
+      <if test="mAddtime != null" >
+        #{mAddtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mAddadmin != null" >
+        #{mAddadmin,jdbcType=VARCHAR},
+      </if>
+      <if test="mUpdatetime != null" >
+        #{mUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mUpdateadmin != null" >
+        #{mUpdateadmin,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.map.pojo.SchoolAreaResourceMapping" >
+    update schoolarea_resource_mapping
+    <set >
+      <if test="mAddtime != null" >
+        m_addTime = #{mAddtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mAddadmin != null" >
+        m_addAdmin = #{mAddadmin,jdbcType=VARCHAR},
+      </if>
+      <if test="mUpdatetime != null" >
+        m_updateTime = #{mUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="mUpdateadmin != null" >
+        m_updateAdmin = #{mUpdateadmin,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where sa_id = #{saId,jdbcType=VARCHAR}
+      and r_id = #{rId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByRid" parameterType="com.map.pojo.SchoolAreaResourceMapping" >
+    update schoolarea_resource_mapping
+    set m_addTime = #{mAddtime,jdbcType=TIMESTAMP},
+      m_addAdmin = #{mAddadmin,jdbcType=VARCHAR},
+      m_updateTime = #{mUpdatetime,jdbcType=TIMESTAMP},
+      m_updateAdmin = #{mUpdateadmin,jdbcType=VARCHAR}
+    where r_id = #{rId,jdbcType=VARCHAR}
+  </update>
+</mapper>

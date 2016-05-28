@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.map.dao.SchoolSchoolConnectDAO">
+	<resultMap id="BaseResultMap" type="com.map.pojo.SchoolSchoolConnect">
+		<id column="s_id1" property="sId1" jdbcType="VARCHAR" />
+		<id column="s_id2" property="sId2" jdbcType="VARCHAR" />
+		<result column="c_type" property="cType" jdbcType="VARCHAR" />
+		<result column="c_addTime" property="cAddtime" jdbcType="TIMESTAMP" />
+		<result column="c_addAdmin" property="cAddadmin" jdbcType="VARCHAR" />
+		<result column="c_updateTime" property="cUpdatetime" jdbcType="TIMESTAMP" />
+		<result column="c_updateAdmin" property="cUpdateadmin"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		s_id1, s_id2, c_type, c_addTime, c_addAdmin, c_updateTime,
+		c_updateAdmin
+	</sql>
+	<select id="selectAll" resultMap="BaseResultMap"
+		parameterType="com.map.pojo.SchoolSchoolConnectKey">
+		select
+		<include refid="Base_Column_List" />
+		from school_school_connect
+	</select>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="com.map.pojo.SchoolSchoolConnectKey">
+		select
+		<include refid="Base_Column_List" />
+		from school_school_connect
+		where s_id1 = #{sId1,jdbcType=VARCHAR}
+		and
+		s_id2 = #{sId2,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="com.map.pojo.SchoolSchoolConnectKey">
+		delete from
+		school_school_connect
+		where s_id1 = #{sId1,jdbcType=VARCHAR}
+		and s_id2 =
+		#{sId2,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.map.pojo.SchoolSchoolConnect">
+		insert into school_school_connect
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="sId1 != null">
+				s_id1,
+			</if>
+			<if test="sId2 != null">
+				s_id2,
+			</if>
+			<if test="cType != null">
+				c_type,
+			</if>
+			<if test="cAddtime != null">
+				c_addTime,
+			</if>
+			<if test="cAddadmin != null">
+				c_addAdmin,
+			</if>
+			<if test="cUpdatetime != null">
+				c_updateTime,
+			</if>
+			<if test="cUpdateadmin != null">
+				c_updateAdmin,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="sId1 != null">
+				#{sId1,jdbcType=VARCHAR},
+			</if>
+			<if test="sId2 != null">
+				#{sId2,jdbcType=VARCHAR},
+			</if>
+			<if test="cType != null">
+				#{cType,jdbcType=VARCHAR},
+			</if>
+			<if test="cAddtime != null">
+				#{cAddtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="cAddadmin != null">
+				#{cAddadmin,jdbcType=VARCHAR},
+			</if>
+			<if test="cUpdatetime != null">
+				#{cUpdatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="cUpdateadmin != null">
+				#{cUpdateadmin,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.map.pojo.SchoolSchoolConnect">
+		update school_school_connect
+		<set>
+			<if test="cType != null">
+				c_type = #{cType,jdbcType=VARCHAR},
+			</if>
+			<if test="cAddtime != null">
+				c_addTime = #{cAddtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="cAddadmin != null">
+				c_addAdmin = #{cAddadmin,jdbcType=VARCHAR},
+			</if>
+			<if test="cUpdatetime != null">
+				c_updateTime = #{cUpdatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="cUpdateadmin != null">
+				c_updateAdmin = #{cUpdateadmin,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where s_id1 = #{sId1,jdbcType=VARCHAR}
+		and s_id2 =
+		#{sId2,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.map.pojo.SchoolSchoolConnect">
+		update
+		school_school_connect
+		set c_type = #{cType,jdbcType=VARCHAR},
+		c_addTime
+		= #{cAddtime,jdbcType=TIMESTAMP},
+		c_addAdmin =
+		#{cAddadmin,jdbcType=VARCHAR},
+		c_updateTime =
+		#{cUpdatetime,jdbcType=TIMESTAMP},
+		c_updateAdmin =
+		#{cUpdateadmin,jdbcType=VARCHAR}
+		where s_id1 = #{sId1,jdbcType=VARCHAR}
+		and s_id2 = #{sId2,jdbcType=VARCHAR}
+	</update>
+</mapper>

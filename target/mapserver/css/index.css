@@ -1,0 +1,29 @@
+.page {
+	width:100%;
+}
+.header , .body , .footer{
+	width:1150px;
+	margin: auto;
+}
+.header {
+	height:130px;
+}
+.body {
+	height:428px;
+	position : relative;
+	background-image:url("http://mailhz.qiye.163.com/qiyeimage/bg/163_bnu_edu_cn/1418716006968.jpg");
+}
+.login-jumbotron {
+	width:413px;
+	height:358px;
+	padding-left:20px;
+	padding-right:20px;
+	border-radius: 5px;
+	position:absolute;
+	top : 75%;
+	right: 5%;
+	margin-top:-270px;
+}
+.footer {
+	height:189px;
+}
