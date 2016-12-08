@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.map.pojo.District;
 import com.map.pojo.School;
 
 public class SchoolDAO extends AbstractDAO{
@@ -71,6 +72,23 @@ public class SchoolDAO extends AbstractDAO{
                  session.close();
              }
          }
+    }
+    public School selectByName(String name){
+    	SqlSession session = null;
+	   	 try {
+	            session = this.getSqlSessionFactory().openSession();
+	            List<Object> list = session.selectList(this.getSqlId(), name);
+	            if (list.size() > 0) {
+	            	return (School)list.get(0);
+	            } else {
+	            	return null;
+	            }
+	        } finally {
+	            if (session != null) {
+	                session.clearCache();
+	                session.close();
+	            }
+        }
     }
     public List<Object> simpleSelectAllBySaId(String saId){
     	SqlSession session = null;

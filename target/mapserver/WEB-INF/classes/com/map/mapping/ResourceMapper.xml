@@ -43,6 +43,14 @@
     from resource,schoolarea_resource_mapping
     where resource.r_id=schoolarea_resource_mapping.r_id AND resource.r_id = #{rId,jdbcType=VARCHAR}
   </select>
+  <select id="selectByName" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from resource
+    where r_name = #{name,jdbcType=VARCHAR}
+  </select>
   <select id="selectByType"  resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
     select 
     r_id,r_name

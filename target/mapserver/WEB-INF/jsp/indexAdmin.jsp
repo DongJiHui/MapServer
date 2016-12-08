@@ -15,7 +15,7 @@
 <body>
 	<div class="page">
 		<div class="header"></div>
-		<div class="body">
+		<div class="body" style="background-image:url(<c:url value="/image/login_bg.jpg"/>)">
 			<div class="jumbotron login-jumbotron">
 				<form action="<c:url value="/index"/>" method="POST" enctype="multipart/form-data">
 					<div class="form-group">

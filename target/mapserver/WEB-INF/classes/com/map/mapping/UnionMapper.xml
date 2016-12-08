@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.map.dao.UnionDAO" >
+  <resultMap id="BaseResultMap" type="com.map.pojo.Union" >
+    <id column="un_id" property="unId" jdbcType="VARCHAR" />
+    <result column="un_name" property="unName" jdbcType="VARCHAR" />
+    <result column="un_type" property="unType" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    un_id, un_name, un_type
+  </sql>
+  <select id="listAll" resultMap="BaseResultMap"  >
+    select 
+    <include refid="Base_Column_List" />
+    from my_union
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from my_union
+    where un_id = #{unId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from my_union
+    where un_id = #{unId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.map.pojo.Union" >
+    insert into my_union (un_id, un_name, un_type)
+    values (#{unId,jdbcType=VARCHAR}, #{unName,jdbcType=VARCHAR}, #{unType,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.map.pojo.Union" >
+    update my_union
+    <set >
+      <if test="unName != null" >
+        un_name = #{unName,jdbcType=VARCHAR},
+      </if>
+      <if test="unType != null" >
+        un_type = #{unType,jdbcType=INTEGER},
+      </if>
+    </set>
+    where un_id = #{unId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.map.pojo.Union" >
+    update my_union
+    set un_name = #{unName,jdbcType=VARCHAR},
+      un_type = #{unType,jdbcType=INTEGER}
+    where un_id = #{unId,jdbcType=VARCHAR}
+  </update>
+</mapper>

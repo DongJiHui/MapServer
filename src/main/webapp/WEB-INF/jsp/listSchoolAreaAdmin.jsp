@@ -112,12 +112,26 @@
 	var initMarkers = function(xhr){
 		if (xhr && xhr.resultCode == 0){
 			var result = xhr.result;
+			console.log(result);
 			for (var i=0; i<result.length; i++){
 				var point = JSON.parse(result[i].sMiddlepoint);
-				new AMap.Marker({
+				var test = function (arg0){
+					var id = arg0;
+					return function(){
+						window.location = 'addSchool?id='+id;
+					}
+				};
+				var testFunc = test(result[i].sId);
+				var id = result[i].sId;
+				var marker = new AMap.Marker({
 					map: mapObj,
+					label: {
+						content: result[i].sName,
+						offset: new AMap.Pixel(-10,-15),
+						},
 					position: new AMap.LngLat(point.lng,point.lat)
 				});
+				window.AMap.event.addListener(marker, 'click', testFunc);
 			}
 		}
 	}

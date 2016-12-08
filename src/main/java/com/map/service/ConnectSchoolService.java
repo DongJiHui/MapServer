@@ -33,6 +33,17 @@ public class ConnectSchoolService {
 		}
 		return list;
 	}
+	public List<Object> selectBySIdWithSchool (String sId){
+		List<Object> list = schoolConnectDAO.selectBySId(sId);
+		for (int i=0; i<list.size(); i++){
+			SchoolSchoolConnect connect =(SchoolSchoolConnect)list.get(i);
+			School school = schoolDAO.selectByPrimaryKey(connect.getsId1());
+			connect.setSchool1(school);
+			school = schoolDAO.selectByPrimaryKey(connect.getsId2());
+			connect.setSchool2(school);
+		}
+		return list;
+	}
 	public void deleteByPrimaryKey(SchoolSchoolConnectKey key){
 		schoolConnectDAO.deleteByPrimaryKey(key);
 	}

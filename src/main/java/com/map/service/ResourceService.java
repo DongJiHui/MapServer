@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import com.map.dao.ResourceDAO;
 import com.map.dao.SchoolAreaResourceMappingDAO;
+import com.map.pojo.District;
 import com.map.pojo.EduResource;
 import com.map.pojo.School;
 import com.map.pojo.SchoolAreaResourceMapping;
@@ -42,6 +43,9 @@ public class ResourceService {
 	}
     public 	EduResource selectById(String id){
 		return resourceDAO.selectByPrimaryKey(id);
+	}
+    public EduResource selectByName(String name){
+		return resourceDAO.selectByName(name);
 	}
     public List<Object> selectByType(String type){
 		return resourceDAO.selectByType(type);

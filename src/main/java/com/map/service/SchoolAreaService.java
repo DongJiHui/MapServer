@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import com.map.dao.DistrictSchoolAreaMappingDAO;
 import com.map.dao.SchoolAreaDAO;
+import com.map.pojo.District;
 import com.map.pojo.DistrictSchoolAreaMapping;
 import com.map.pojo.SchoolArea;
 
@@ -53,6 +54,9 @@ public class SchoolAreaService {
 	}
 	public SchoolArea selectById(String id){
 		return schoolAreaDao.selectByPrimaryKey(id);
+	}
+	public SchoolArea selectByName(String name){
+		return schoolAreaDao.selectByName(name);
 	}
 	public void deleteById(String id){
 		schoolAreaDao.deleteByPrimaryKey(id);

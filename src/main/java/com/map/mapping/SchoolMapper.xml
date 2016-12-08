@@ -44,9 +44,19 @@
     from school,schoolarea_school_mapping
     where school.s_id=schoolarea_school_mapping.s_id AND school.s_id = #{sId,jdbcType=VARCHAR}
   </select>
+  <select id="selectByName" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from school
+    where s_name = #{name,jdbcType=VARCHAR}
+  </select>
   <select id="selectByType"  resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
     select 
-    s_id,s_name
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from school
     where s_type=#{sType,jdbcType=VARCHAR}
   </select>

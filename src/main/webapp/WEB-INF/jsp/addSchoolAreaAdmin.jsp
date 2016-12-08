@@ -9,6 +9,7 @@
 <%@ include file="/WEB-INF/include/StyleSheetAdmin.inc"%>
 <script type="text/javascript"
 	src="http://webapi.amap.com/maps?v=1.3&key=ca76dda02a3f34acd3130993e0b3aed9"></script>
+	<script src="<c:url value="/js/validator.js"/>" type="text/javascript"></script>
 <style>
 .jumbotron {
 	width: 80%;
@@ -67,7 +68,8 @@
 						<div class="form-group">
 							<label for="areaName">学区名称：</label> <input type="text"
 								value="${ schoolArea.saName  }" class="form-control"
-								id="areaName" name="name" placeholder="请输入学区名称">
+								id="areaName" name="name" placeholder="请输入学区名称" data-error="该学区名已存在" data-remote="adminApi/schoolAreaCheck" required>
+								<div class="help-block with-errors"></div>
 						</div>
 						<div class="form-group">
 							<label for="districtName">学区所属行政区：</label> <select
@@ -519,6 +521,7 @@ var PointsModel = function () {
   
   $(document).ready(
 	function() {
+		$('#myForm').validator();
 		$('button[type=submit]').on('click',function(){
 			$('#myForm').submit();
 		});

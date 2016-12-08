@@ -52,6 +52,23 @@ public class DistrictDAO extends AbstractDAO{
 	            }
         }
     }
+    public District selectByName(String name){
+    	SqlSession session = null;
+	   	 try {
+	            session = this.getSqlSessionFactory().openSession();
+	            List<Object> list = session.selectList(this.getSqlId(), name);
+	            if (list.size() > 0) {
+	            	return (District)list.get(0);
+	            } else {
+	            	return null;
+	            }
+	        } finally {
+	            if (session != null) {
+	                session.clearCache();
+	                session.close();
+	            }
+        }
+    }
    public void deleteByPrimaryKey(String id){
     	SqlSession session = null;
 	   	 try {

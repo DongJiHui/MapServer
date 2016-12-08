@@ -9,6 +9,8 @@
 <%@ include file="/WEB-INF/include/StyleSheetAdmin.inc"%>
 <script type="text/javascript"
 	src="http://webapi.amap.com/maps?v=1.3&key=ca76dda02a3f34acd3130993e0b3aed9"></script>
+	<script src="<c:url value="/js/validator.js"/>" type="text/javascript"></script>
+	
 <style>
 .jumbotron {
 	width: 80%;
@@ -66,8 +68,8 @@
 					<div class="col-lg-5">
 						<div class="form-group">
 							<label for="schoolName">教育资源名称：</label> <input type="text"
-								value="${ resource.rName  }" class="form-control" id="schoolName"
-								name="name" placeholder="请输入学校名称">
+								value="${ resource.rName  }" class="form-control" id="schoolName" data-error="该教育资源名已存在" data-remote="adminApi/resourceCheck"
+								name="name" placeholder="请输入学校名称" required ><div class="help-block with-errors"></div>
 						</div>
 						<div class="form-group">
 							<label for="districtName">教育资源所属学区：</label> <select id="district"
@@ -286,7 +288,9 @@
 		drawMiddlePoint();
 	}
 	$(document).ready(function() {
+		$('#myForm').validator();
 		$('button[type=submit]').on('click', function() {
+			$('#myForm').validator('validate');
 			$('#myForm').submit();
 		});
 		$("a[attitude=middlePoint]").on('click', function() {

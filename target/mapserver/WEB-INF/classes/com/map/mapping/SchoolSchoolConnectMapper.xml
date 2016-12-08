@@ -30,6 +30,15 @@
 		and
 		s_id2 = #{sId2,jdbcType=VARCHAR}
 	</select>
+	<select id="selectBySId" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from school_school_connect
+		where s_id1 = #{sId,jdbcType=VARCHAR}
+		OR
+		s_id2 = #{sId,jdbcType=VARCHAR}
+	</select>
 	<delete id="deleteByPrimaryKey" parameterType="com.map.pojo.SchoolSchoolConnectKey">
 		delete from
 		school_school_connect

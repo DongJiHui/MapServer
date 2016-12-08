@@ -30,6 +30,9 @@ public class DistrictService {
 	public District selectById(String id){
 		return dao.selectByPrimaryKey(id);
 	}
+	public District selectByName(String name){
+		return dao.selectByName(name);
+	}
 	public void deleteById(String id){
 		dao.deleteByPrimaryKey(id);
 	}

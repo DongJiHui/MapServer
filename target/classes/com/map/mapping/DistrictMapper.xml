@@ -18,6 +18,12 @@
     from district
     where d_id = #{dId,jdbcType=VARCHAR}
   </select>
+  <select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from district
+    where d_name = #{dName,jdbcType=VARCHAR}
+  </select>
   <select id="selectAll" resultMap="BaseResultMap">
   	select 
   	<include refid="Base_Column_List" />

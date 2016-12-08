@@ -48,6 +48,18 @@ public class SchoolSchoolConnectDAO extends AbstractDAO{
            }
        }
    }
+   public List<Object> selectBySId(String sId){
+	   SqlSession session = null;
+       try {
+           session = this.getSqlSessionFactory().openSession();
+           return session.selectList(this.getSqlId(),sId);
+       } finally {
+           if (session != null) {
+               session.clearCache();
+               session.close();
+           }
+       }
+   }
 //
 //    int insertSelective(SchoolSchoolConnect record);
 //

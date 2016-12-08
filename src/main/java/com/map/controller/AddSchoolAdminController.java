@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.map.pojo.School;
-import com.map.pojo.SchoolArea;
 import com.map.service.SchoolAreaService;
 import com.map.service.SchoolService;
 

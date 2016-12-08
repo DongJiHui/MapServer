@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 
 import com.map.dao.SchoolAreaSchoolMappingDAO;
 import com.map.dao.SchoolDAO;
+import com.map.pojo.District;
 import com.map.pojo.School;
 import com.map.pojo.SchoolAreaSchoolMapping;
 
@@ -40,6 +41,9 @@ public class SchoolService {
 	}
     public School selectById(String id){
 		return schoolDAO.selectByPrimaryKey(id);
+	}
+    public School selectByName(String name){
+		return schoolDAO.selectByName(name);
 	}
     public List<Object> selectByType(String type){
 		return schoolDAO.selectByType(type);

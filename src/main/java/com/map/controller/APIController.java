@@ -1,5 +1,8 @@
 package com.map.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,7 +10,9 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,16 +20,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.map.constant.VersionConstant;
 import com.map.jsonBean.Point;
 import com.map.jsonBean.ResultBean;
 import com.map.jsonBean.SchoolAreaBean;
 import com.map.jsonBean.SchoolBean;
 import com.map.pojo.School;
 import com.map.pojo.SchoolArea;
+import com.map.pojo.SchoolSchoolConnect;
+import com.map.pojo.Union;
+import com.map.service.ConnectSchoolService;
 import com.map.service.DistrictService;
 import com.map.service.SchoolAreaService;
 import com.map.service.SchoolService;
+import com.map.service.UnionService;
 import com.map.util.PointUtil;
+import com.map.util.SchoolConnectUtil;
 
 @Controller  
 @RequestMapping("/api")  
@@ -37,6 +48,13 @@ public class APIController {
 	
 	@Resource
 	private SchoolService schoolService = null;
+	
+	@Resource
+	private ConnectSchoolService connectSchoolService = null;
+	
+	@Resource
+	private UnionService unionService = null;
+	
 	
 	@RequestMapping(value="/schoolAreaList")
     public @ResponseBody Object schoolAreaList(HttpServletRequest request
@@ -96,6 +114,60 @@ public class APIController {
 		}
 		
 	}
+	
+	
+	@RequestMapping(value="/union")
+    public @ResponseBody Object union(HttpServletRequest request
+    		,@RequestParam(value = "sId", required = true) String sId){
+		Map<String,List> map = unionService.selectBySId(sId);
+		List resultArray = new ArrayList();
+		for (String key : map.keySet()) {
+			Union union = unionService.getUnionBaseInfo(key);
+			Map tmp = new HashMap();
+			tmp.put("unId",union.getUnId());
+			tmp.put("unName", union.getUnName());
+			tmp.put("unType", union.getUnType());
+			tmp.put("unMember", map.get(key));
+			resultArray.add(tmp);
+		}
+		return resultArray;
+	}
+	@RequestMapping(value="/schoolMapping")
+    public @ResponseBody Object schoolMapping(HttpServletRequest request
+    		,@RequestParam(value = "sId", required = true) String sId,@RequestParam(value = "connectType", required = false) String connectType){
+		List<Object> list = connectSchoolService.selectBySIdWithSchool(sId);
+		List<Map> returnList = new ArrayList<Map>();
+		for (int i=0; i<list.size(); i++){
+			Map map = new HashMap<String,String>();
+			SchoolSchoolConnect connect = (SchoolSchoolConnect)list.get(i);
+			map.put("connectType",SchoolConnectUtil.typeMapping(connect.getcType()) );
+			SchoolBean schoolBean = null;
+			if (connect.getsId1().equals(sId)) {
+				schoolBean = new SchoolBean(connect.getSchool2());
+			} else if (connect.getsId2().equals(sId)) {
+				schoolBean = new SchoolBean(connect.getSchool1());
+			}
+			map.put("school",schoolBean );
+			if ( connectType == null){
+				returnList.add(map);
+			} else {
+				if (map.get("connectType").equals(connectType)){
+					returnList.add(map);
+				}
+			}
+			
+		}
+		ResultBean resultBean = new ResultBean();
+		if (list == null || list.isEmpty()){
+			resultBean.setResultCode(-1);
+			resultBean.setResultMsg("该学校不存在关系");
+		} else {
+			resultBean.setResultCode(0);
+			resultBean.setResultMsg("找到学校关系");
+			resultBean.setResult(returnList);
+		}
+		return resultBean;
+	}
 	@RequestMapping(value="/search")
 	 public @ResponseBody Object search(HttpServletRequest request
 	    		,@RequestParam(value = "lng", required = true) float lng,
@@ -130,6 +202,40 @@ public class APIController {
 			return new ResultBean("找到学区",0,map);
 		} else {
 			return new ResultBean("未找到该学区",-1,null);
+		}
+	}
+	@RequestMapping(value="/version")
+	 public @ResponseBody Object version(HttpServletRequest request){
+		Map map = new HashMap<String,String>();
+		map.put("versionCode", VersionConstant.versionCode);
+		map.put("versionDesc", VersionConstant.versionDecs);
+		return map;
+	}
+	@RequestMapping(value="/appDownload")
+	public void appDownload(HttpServletResponse response) {
+		File file = new File(VersionConstant.address);
+		if (file== null || !file.exists()){
+			System.out.println("aa");
+			return;
+		}
+		OutputStream out = null;
+		try {
+			response.reset();
+			response.setContentType("application/octet-stream; charset=utf-8");
+			response.setHeader("Content-Disposition","attachment; filename="+file.getName());
+			out = response.getOutputStream();
+			out.write(FileUtils.readFileToByteArray(file));
+			out.flush();
+		} catch (IOException e){
+			e.printStackTrace();
+		} finally{
+			if (out != null) {
+				try {
+					out.close();
+				}catch (IOException e){
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
