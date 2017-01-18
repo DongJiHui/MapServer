@@ -30,7 +30,7 @@ public class UnionService {
 		for (int i = 0; i<list.size(); i++){
 			UnionSchoolMapping mapping = (UnionSchoolMapping)list.get(i);
 			if (!map.containsKey(mapping.getUnId())) {
-				List<School> tmp = new ArrayList<>();
+				List<School> tmp = new ArrayList<School>();
 				List<Object> unionSchoolMappingList =  mappingDAO.selectByUnId(mapping.getUnId());
 				for  (int j = 0; j<unionSchoolMappingList.size(); j++) {
 					UnionSchoolMapping m = (UnionSchoolMapping)unionSchoolMappingList.get(j);
