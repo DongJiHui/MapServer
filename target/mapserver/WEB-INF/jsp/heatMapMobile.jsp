@@ -14,124 +14,15 @@
 <script>
 
 
-var userdata ='${ sdata }';     
+var userdata ='${ sdata }';
+var lng = '${ lng }';
+var lat = '${ lat }';
+var zoom = '${ zoom }';
 
 	var heatmapData = JSON.parse(userdata);
 	console.log(heatmapData);
-/*var array = userdata.split('*');
-var d = [];
-for (a in array)
-	{
-	if (array[a].trim() != "") {
-       console.log(array[a]);
 
-          var spdata2 = array[a].split('^');
-         
-         
-          d.push(
-   			   {  "lng" : spdata2[0],
-                   "lat"  : spdata2[1],
-                   "count": spdata2[2] }
-   			   )
-          
-        
-
-         // alert("the locatoin are"+arrdata[a][0]+","+ arrdata[a][1]);
-      }
-
-    
-
-  }
-heatmapData=d;
-console.log(heatmapData);
-*/
-
-
-
-
-
-/*]]>*/
-
-       /*
-       
-            var d = [,];
-
-            for (var i=0; i<100; i++) {
-                d[i]['price'] = 34;
-                d[1]['name'] = 34
-            }
-
-            alert(d);
-        }
-        catch(Error)
-        {
-            alert(Error)
-        }
-
-        
-        
-        var heatmapData = [
-           {
-               "lng": 116.191031,
-               "lat": 39.988585,
-               "count": 10
-           }, {
-               "lng": 116.389275,
-               "lat": 39.925818,
-               "count": 11
-           }, {
-               "lng": 116.287444,
-               "lat": 39.810742,
-               "count": 12
-           }, {
-               "lng": 116.481707,
-               "lat": 39.940089,
-               "count": 13
-           }, {
-               "lng": 116.410588,
-               "lat": 39.880172,
-               "count": 14
-           }, {
-               "lng": 116.394816,
-               "lat": 39.91181,
-               "count": 15
-           }, {
-               "lng": 116.416002,
-               "lat": 39.952917,
-               "count": 16
-           }, {
-               "lng": 116.39671,
-               "lat": 39.924903,
-               "count": 17
-           }, {
-               "lng": 116.180816,
-               "lat": 39.957553,
-               "count": 18
-           }, {
-               "lng": 116.382035,
-               "lat": 39.874114,
-               "count": 19
-           }, {
-               "lng": 116.316648,
-               "lat": 39.914529,
-               "count": 20
-           }, {
-               "lng": 116.395803,
-               "lat": 39.908556,
-               "count": 21
-           }, {
-               "lng": 116.74553,
-               "lat": 39.875916,
-               "count": 22
-           }, {
-               "lng": 116.352289,
-               "lat": 39.916475,
-               "count": 23
-           }
-        ];
-        */
-
-    </script>
+</script>
 
 
 
@@ -147,8 +38,8 @@ console.log(heatmapData);
 	<script>
     var map = new AMap.Map("container", {
         resizeEnable: true,
-        center: [116.418261, 39.921984],
-        zoom: 11
+        center: [lng, lat],
+        zoom: zoom
     });
     if (!isSupportCanvas()) {
         alert('热力图仅对支持canvas的浏览器适用,您所使用的浏览器不能使用热力图功能,请换个浏览器试试~')
