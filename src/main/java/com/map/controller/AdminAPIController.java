@@ -63,10 +63,27 @@ public class AdminAPIController {
 		}
 		return resultList;
 	}
+	@RequestMapping(value="/schoolBySaId")
+    public @ResponseBody Object schoolBySaId(HttpServletRequest request
+    		,@RequestParam(value = "saId", required = true) String saId){
+		return schoolService.selectAllBySaId(saId);
+	}
+	@RequestMapping(value="/schoolByDName")
+    public @ResponseBody Object schoolByDId(HttpServletRequest request
+    		,@RequestParam(value = "dName", required = true) String dName){
+		List<Object> schoolAreaList = schoolAreaService.listAllByDName(dName);
+		List<Object> returnschoolList = new ArrayList<Object>();
+		if (null != schoolAreaList && !schoolAreaList.isEmpty()){
+			for (	Object schoolArea : schoolAreaList){
+				String said = ((SchoolArea)schoolArea).getSaId();
+				returnschoolList.addAll(schoolService.selectAllBySaId(said));
+			}
+		}
+		return returnschoolList;
+	}
 	@RequestMapping(value="/allSchool")
     public @ResponseBody Object allSchool(HttpServletRequest request){
-			List list =(List) schoolService.listAll();
-			return list;
+			return schoolService.listAll();
 	}
 	@RequestMapping(value="/districtCheck")
     public @ResponseBody Object districtCheck(HttpServletRequest request

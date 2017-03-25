@@ -1,5 +1,7 @@
 package com.map.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,10 +27,15 @@ public class ListSchoolAdminController {
 	@RequestMapping
     public String init(HttpServletRequest request,Model model,
     		@RequestParam(value = "schoolAreaId", required = false) String schoolAreaId){
-		model.addAttribute("schoolAreas", schoolAreaService.simpleListAll());
+		List<Object> schoolAreaList = schoolAreaService.simpleListAll();
+		model.addAttribute("schoolAreas", schoolAreaList);
 		model.addAttribute("schoolAreaId", schoolAreaId);
 		if (schoolAreaId!=null) {
-			model.addAttribute("schools", schoolService.simpleSelectAllBySaId(schoolAreaId));
+			model.addAttribute("schools",  schoolService.simpleSelectAllBySaId(schoolAreaId));
+    	} else {
+    		if (null != schoolAreaList && !schoolAreaList.isEmpty()){
+    			model.addAttribute("schools",  schoolService.simpleSelectAllBySaId(((SchoolArea)schoolAreaList.get(0)).getSaId()));
+    		}
     	}
         return "listSchoolAdmin";  
     }

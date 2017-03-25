@@ -33,6 +33,9 @@ public class SchoolService {
 	public List<Object> simpleSelectAllBySaId(String saId){
 		return schoolDAO.simpleSelectAllBySaId(saId);
 	}
+	public List<Object> selectAllBySaId(String saId){
+		return schoolDAO.selectAllBySaId(saId);
+	}
 	public List<Object> listAll(){
 		return schoolDAO.selectAll();
 	}

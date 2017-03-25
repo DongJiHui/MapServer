@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50711
 File Encoding         : 65001
 
-Date: 2017-01-18 12:36:40
+Date: 2017-03-25 11:54:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -186,6 +186,7 @@ INSERT INTO `school` VALUES ('1a62932b-2df3-432d-8772-8f57ac804371', '陶然亭�
 INSERT INTO `school` VALUES ('1cf50b1c-4161-4575-9af0-553ad0fb4265', '进步小学', '西直门外南大街榆树馆胡同1号', '公立', '小学', '3', '测试-进步小学', null, null, '{\"lng\":116.34798,\"lat\":39.936507}', '', '68351098', '2016-05-27 18:47:53', 'zhangyunteng', '2016-05-27 18:47:53', 'zhangyunteng');
 INSERT INTO `school` VALUES ('1d693538-27d6-47f8-b625-ce79978a625d', '三义里小学', '广外三义里四号', '公立', '小学', '4', '测试-三义里小学', null, null, '{\"lng\":116.328544,\"lat\":39.88688}', 'www.xcqsylxx.com', '63464375', '2016-05-27 16:40:04', 'zhangyunteng', '2016-05-27 16:40:04', 'zhangyunteng');
 INSERT INTO `school` VALUES ('20d38531-96a1-419f-856d-62b76893e8ff', '实验二小长安校区', '东绒线胡同41号', '公立', '小学', '3', '测试-实验二小长安校区', null, null, '{\"lng\":116.386459,\"lat\":39.90462}', '', '66054186', '2016-05-31 11:47:54', 'zhangyunteng', '2016-05-31 11:47:54', 'zhangyunteng');
+INSERT INTO `school` VALUES ('288e7a0d-cc16-4827-8fb8-155db0f7f2bf', '測試學校1', '', '公立', '高中', '', '', null, null, '{\"lng\":116.313734,\"lat\":39.982421}', '', '', '2017-03-25 10:57:48', null, '2017-03-25 10:57:48', null);
 INSERT INTO `school` VALUES ('29eeb5c1-98b4-4f13-ba50-c5fca9d558bc', '第十三中学附属小学', '西煤场胡同7号', '公立', '小学', '3.2', '测试-第十三中学附属小学', null, null, '{\"lng\":116.389732,\"lat\":39.938843}', 'http://www.xjlyjxx.org/', '', '2016-05-31 18:36:33', 'zhangyunteng', '2016-05-31 18:36:33', 'zhangyunteng');
 INSERT INTO `school` VALUES ('2db0b6ef-e5fe-40ef-a0b0-61d710635e16', '复兴门外第一小学', '复兴门外大街地藏庵23号', '公立', '小学', '3', '测试-复兴门外第一小学', null, null, '{\"lng\":116.347939,\"lat\":39.912889}', 'http://www.xjfxmw1x.org/', '68027807', '2016-05-27 19:14:29', 'zhangyunteng', '2016-05-27 19:14:29', 'zhangyunteng');
 INSERT INTO `school` VALUES ('2fd901ca-24e8-498f-abb2-c53b757f617d', 'test', '', '公立', '小学', '', '', null, null, '{\"lng\":116.355501,\"lat\":39.873708}', '', '', '2016-05-12 13:27:03', 'hunter', '2016-05-12 13:27:03', 'hunter');
@@ -471,10 +472,36 @@ INSERT INTO `schoolarea_school_mapping` VALUES ('e8040dab-9ef4-4698-a2fe-b84636e
 INSERT INTO `schoolarea_school_mapping` VALUES ('e8040dab-9ef4-4698-a2fe-b84636ef883e', 'b37c9762-981c-4210-875e-8ff9ed988366', '2016-05-27 18:44:40', 'zhangyunteng', '2016-05-27 18:44:40', 'zhangyunteng');
 INSERT INTO `schoolarea_school_mapping` VALUES ('e8040dab-9ef4-4698-a2fe-b84636ef883e', 'c52a55c1-d052-41e8-8ce6-fdeed3315459', '2016-05-31 19:17:26', 'zhangyunteng', '2016-05-31 19:17:26', 'zhangyunteng');
 INSERT INTO `schoolarea_school_mapping` VALUES ('f2c4d944-8e2f-462f-b729-db4efcb96d00', '1131ec58-35d3-4f54-b901-dbb9a261bbab', '2016-05-07 14:03:33', 'hunter', '2016-05-07 14:03:33', 'hunter');
+INSERT INTO `schoolarea_school_mapping` VALUES ('f2c4d944-8e2f-462f-b729-db4efcb96d00', '288e7a0d-cc16-4827-8fb8-155db0f7f2bf', '2017-03-25 10:57:48', null, '2017-03-25 10:57:48', null);
 INSERT INTO `schoolarea_school_mapping` VALUES ('f2c4d944-8e2f-462f-b729-db4efcb96d00', '30b27fd7-d8b9-4fc2-bde6-6d95316fe766', '2016-05-20 19:27:27', 'wangqianyun', '2016-05-20 19:27:27', 'wangqianyun');
 INSERT INTO `schoolarea_school_mapping` VALUES ('f2c4d944-8e2f-462f-b729-db4efcb96d00', 'b06af3b5-2751-42d2-813e-96657afdc06f', '2016-05-20 19:28:26', 'wangqianyun', '2016-05-20 19:28:26', 'wangqianyun');
 INSERT INTO `schoolarea_school_mapping` VALUES ('f2c4d944-8e2f-462f-b729-db4efcb96d00', 'cc4aeb0e-6c04-409d-b128-dd4359f1425f', '2016-05-20 19:28:56', 'wangqianyun', '2016-05-20 19:28:56', 'wangqianyun');
 INSERT INTO `schoolarea_school_mapping` VALUES ('f2c4d944-8e2f-462f-b729-db4efcb96d00', 'ddd5dadb-22da-4b6a-aebb-060320405d00', '2016-05-20 19:28:00', 'wangqianyun', '2016-05-20 19:28:00', 'wangqianyun');
+
+-- ----------------------------
+-- Table structure for `school_school_allocation`
+-- ----------------------------
+DROP TABLE IF EXISTS `school_school_allocation`;
+CREATE TABLE `school_school_allocation` (
+  `al_ms_id` varchar(50) NOT NULL,
+  `al_hs_id` varchar(50) NOT NULL,
+  `al_quota` int(11) DEFAULT NULL,
+  `al_d_name` varchar(30) NOT NULL,
+  `al_addTime` datetime DEFAULT NULL,
+  `al_addAdmin` varchar(30) DEFAULT NULL,
+  `al_updateTime` datetime DEFAULT NULL,
+  `al_updateAdmin` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`al_ms_id`,`al_hs_id`),
+  KEY `al_hs_fk` (`al_hs_id`),
+  KEY `al_said_fk` (`al_d_name`),
+  CONSTRAINT `al_hs_fk` FOREIGN KEY (`al_hs_id`) REFERENCES `school` (`s_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `al_ms_fk` FOREIGN KEY (`al_ms_id`) REFERENCES `school` (`s_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of school_school_allocation
+-- ----------------------------
+INSERT INTO `school_school_allocation` VALUES ('ddd5dadb-22da-4b6a-aebb-060320405d00', 'd71de222-cbd8-4f4a-b2fc-a8a268a3c0b7', '2', '海淀区', '2017-03-25 11:49:37', null, '2017-03-25 11:49:37', null);
 
 -- ----------------------------
 -- Table structure for `school_school_connect`

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.map.dao.SchoolSchoolAllocationDAO" >
+  <resultMap id="BaseResultMap" type="com.map.pojo.SchoolSchoolAllocation" >
+    <id column="al_ms_id" property="alMsId" jdbcType="VARCHAR" />
+    <id column="al_hs_id" property="alHsId" jdbcType="VARCHAR" />
+    <result column="al_quota" property="alQuota" jdbcType="INTEGER" />
+    <result column="al_d_name" property="alDName" jdbcType="VARCHAR" />
+    <result column="al_addTime" property="alAddtime" jdbcType="TIMESTAMP" />
+    <result column="al_addAdmin" property="alAddadmin" jdbcType="VARCHAR" />
+    <result column="al_updateTime" property="alUpdatetime" jdbcType="TIMESTAMP" />
+    <result column="al_updateAdmin" property="alUpdateadmin" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    al_ms_id, al_hs_id, al_quota, al_d_name, al_addTime, al_addAdmin, al_updateTime, al_updateAdmin
+  </sql>
+  <select id="selectAll" resultMap="BaseResultMap"
+		parameterType="com.map.pojo.SchoolSchoolAllocationKey">
+		select
+		<include refid="Base_Column_List" />
+		from school_school_allocation
+	</select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.map.pojo.SchoolSchoolAllocationKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from school_school_allocation
+    where al_ms_id = #{alMsId,jdbcType=VARCHAR}
+      and al_hs_id = #{alHsId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.map.pojo.SchoolSchoolAllocationKey" >
+    delete from school_school_allocation
+    where al_ms_id = #{alMsId,jdbcType=VARCHAR}
+      and al_hs_id = #{alHsId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.map.pojo.SchoolSchoolAllocation" >
+    insert into school_school_allocation (al_ms_id, al_hs_id, al_quota, 
+      al_d_name, al_addTime, al_addAdmin, 
+      al_updateTime, al_updateAdmin)
+    values (#{alMsId,jdbcType=VARCHAR}, #{alHsId,jdbcType=VARCHAR}, #{alQuota,jdbcType=INTEGER}, 
+      #{alDName,jdbcType=VARCHAR}, #{alAddtime,jdbcType=TIMESTAMP}, #{alAddadmin,jdbcType=VARCHAR}, 
+      #{alUpdatetime,jdbcType=TIMESTAMP}, #{alUpdateadmin,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.map.pojo.SchoolSchoolAllocation" >
+    insert into school_school_allocation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="alMsId != null" >
+        al_ms_id,
+      </if>
+      <if test="alHsId != null" >
+        al_hs_id,
+      </if>
+      <if test="alQuota != null" >
+        al_quota,
+      </if>
+      <if test="alDName != null" >
+        al_d_name,
+      </if>
+      <if test="alAddtime != null" >
+        al_addTime,
+      </if>
+      <if test="alAddadmin != null" >
+        al_addAdmin,
+      </if>
+      <if test="alUpdatetime != null" >
+        al_updateTime,
+      </if>
+      <if test="alUpdateadmin != null" >
+        al_updateAdmin,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="alMsId != null" >
+        #{alMsId,jdbcType=VARCHAR},
+      </if>
+      <if test="alHsId != null" >
+        #{alHsId,jdbcType=VARCHAR},
+      </if>
+      <if test="alQuota != null" >
+        #{alQuota,jdbcType=INTEGER},
+      </if>
+      <if test="alDName != null" >
+        #{alDName,jdbcType=VARCHAR},
+      </if>
+      <if test="alAddtime != null" >
+        #{alAddtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alAddadmin != null" >
+        #{alAddadmin,jdbcType=VARCHAR},
+      </if>
+      <if test="alUpdatetime != null" >
+        #{alUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alUpdateadmin != null" >
+        #{alUpdateadmin,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.map.pojo.SchoolSchoolAllocation" >
+    update school_school_allocation
+    <set >
+      <if test="alQuota != null" >
+        al_quota = #{alQuota,jdbcType=INTEGER},
+      </if>
+      <if test="alDName != null" >
+        al_d_name = #{alDName,jdbcType=VARCHAR},
+      </if>
+      <if test="alAddtime != null" >
+        al_addTime = #{alAddtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alAddadmin != null" >
+        al_addAdmin = #{alAddadmin,jdbcType=VARCHAR},
+      </if>
+      <if test="alUpdatetime != null" >
+        al_updateTime = #{alUpdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="alUpdateadmin != null" >
+        al_updateAdmin = #{alUpdateadmin,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where al_ms_id = #{alMsId,jdbcType=VARCHAR}
+      and al_hs_id = #{alHsId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.map.pojo.SchoolSchoolAllocation" >
+    update school_school_allocation
+    set al_quota = #{alQuota,jdbcType=INTEGER},
+      al_d_name = #{alDName,jdbcType=VARCHAR},
+      al_addTime = #{alAddtime,jdbcType=TIMESTAMP},
+      al_addAdmin = #{alAddadmin,jdbcType=VARCHAR},
+      al_updateTime = #{alUpdatetime,jdbcType=TIMESTAMP},
+      al_updateAdmin = #{alUpdateadmin,jdbcType=VARCHAR}
+    where al_ms_id = #{alMsId,jdbcType=VARCHAR}
+      and al_hs_id = #{alHsId,jdbcType=VARCHAR}
+  </update>
+</mapper>
