@@ -41,17 +41,17 @@ public class AllocateSchoolService {
 		}
 		return list;
 	}
-//	public List<Object> selectBySIdWithSchool (String sId){
-//		List<Object> list = schoolConnectDAO.selectBySId(sId);
-//		for (int i=0; i<list.size(); i++){
-//			SchoolSchoolConnect connect =(SchoolSchoolConnect)list.get(i);
-//			School school = schoolDAO.selectByPrimaryKey(connect.getsId1());
-//			connect.setSchool1(school);
-//			school = schoolDAO.selectByPrimaryKey(connect.getsId2());
-//			connect.setSchool2(school);
-//		}
-//		return list;
-//	}
+	public List<Object> selectByDNameWithSchool (String dName){
+		List<Object> list = schoolAllocateDAO.selectAllByDName(dName);
+		for (Object al  : list){
+			SchoolSchoolAllocation allocation = (SchoolSchoolAllocation) al;
+			School school = schoolDAO.selectByPrimaryKey(allocation.getAlMsId());
+			allocation.setMiddleSchool(school);
+			school = schoolDAO.selectByPrimaryKey(allocation.getAlHsId());
+			allocation.setHighSchool(school);
+		}
+		return list;
+	}
 	public void deleteByPrimaryKey(SchoolSchoolAllocationKey key){
 		schoolAllocateDAO.deleteByPrimaryKey(key);
 	}

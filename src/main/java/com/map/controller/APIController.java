@@ -21,14 +21,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.map.constant.VersionConstant;
+import com.map.jsonBean.AllocationBean;
 import com.map.jsonBean.Point;
 import com.map.jsonBean.ResultBean;
 import com.map.jsonBean.SchoolAreaBean;
 import com.map.jsonBean.SchoolBean;
 import com.map.pojo.School;
 import com.map.pojo.SchoolArea;
+import com.map.pojo.SchoolSchoolAllocation;
 import com.map.pojo.SchoolSchoolConnect;
 import com.map.pojo.Union;
+import com.map.service.AllocateSchoolService;
 import com.map.service.ConnectSchoolService;
 import com.map.service.DistrictService;
 import com.map.service.SchoolAreaService;
@@ -54,6 +57,9 @@ public class APIController {
 	
 	@Resource
 	private UnionService unionService = null;
+	
+	@Resource
+	private AllocateSchoolService allocateSchoolService = null;
 	
 	
 	@RequestMapping(value="/schoolAreaList")
@@ -237,6 +243,43 @@ public class APIController {
 				}
 			}
 		}
+	}
+	@RequestMapping(value="/quotaAllocation")
+	 public @ResponseBody Object quotaAllocation(HttpServletRequest request,
+			 @RequestParam(value = "districtName", required = true) String districtName){
+		ResultBean resultBean = new ResultBean();
+		List<Object> list = allocateSchoolService.selectByDNameWithSchool(districtName);
+		if (list == null && list.isEmpty()){
+			resultBean.setResultCode(-1);
+			resultBean.setResultMsg("无结果");
+		}else {
+			resultBean.setResultCode(0);
+			resultBean.setResultMsg("成功");
+			Map<String,AllocationBean> resMap = new HashMap<String,AllocationBean>();
+			for (Object al  : list){
+				SchoolSchoolAllocation allocation = (SchoolSchoolAllocation) al;
+				String key = allocation.getAlMsId();
+				if (resMap.containsKey(key)){
+					List tmpList = resMap.get(key).getHighSchools();
+					Map<String,Object> tmpMap = new HashMap<String,Object>();
+					tmpMap.put("highSchoolId", allocation.getAlHsId());
+					tmpMap.put("highSchoolName", allocation.getHighSchool().getsName());
+					tmpMap.put("quota", allocation.getAlQuota());
+					tmpList.add(tmpMap);
+				}else {
+					List<Map> tmpList = new ArrayList<Map>();
+					Map<String,Object> tmpMap = new HashMap<String,Object>();
+					tmpMap.put("highSchoolId", allocation.getAlHsId());
+					tmpMap.put("highSchoolName", allocation.getHighSchool().getsName());
+					tmpMap.put("quota", allocation.getAlQuota());
+					tmpList.add(tmpMap);
+					AllocationBean allocationBean = new AllocationBean(allocation.getAlMsId(),allocation.getMiddleSchool().getsName(),tmpList);
+					resMap.put(key, allocationBean);
+				}
+			}
+			resultBean.setResult(resMap.values());
+		}
+		return resultBean;
 	}
 
 }

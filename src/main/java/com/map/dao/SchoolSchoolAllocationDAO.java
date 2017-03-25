@@ -54,10 +54,18 @@ public class SchoolSchoolAllocationDAO extends AbstractDAO{
         	 return (	SchoolSchoolAllocation)list.get(0);
          }
 	 }
-//
-//    int updateByPrimaryKeySelective(SchoolSchoolAllocation record);
-//
-//    int updateByPrimaryKey(SchoolSchoolAllocation record);
+	 public List<Object> selectAllByDName(String DName){
+		   SqlSession session = null;
+	       try {
+	           session = this.getSqlSessionFactory().openSession();
+	           return session.selectList(this.getSqlId(),DName);
+	       } finally {
+	           if (session != null) {
+	               session.clearCache();
+	               session.close();
+	           }
+	       }
+	   }
 	public List<Object> selectAll(){
 		   SqlSession session = null;
 	       try {

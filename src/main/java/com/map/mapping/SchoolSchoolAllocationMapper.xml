@@ -20,6 +20,13 @@
 		<include refid="Base_Column_List" />
 		from school_school_allocation
 	</select>
+ <select id="selectAllByDName" resultMap="BaseResultMap"
+		parameterType="com.map.pojo.SchoolSchoolAllocationKey">
+		select
+		<include refid="Base_Column_List" />
+		from school_school_allocation
+		 where al_d_name = #{alDName,jdbcType=VARCHAR}
+	</select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.map.pojo.SchoolSchoolAllocationKey" >
     select 
     <include refid="Base_Column_List" />

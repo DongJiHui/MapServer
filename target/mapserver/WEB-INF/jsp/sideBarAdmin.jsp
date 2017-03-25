@@ -21,6 +21,7 @@
   <a href="#" class="list-group-item" location="listResource">教育资源列表</a>
   <a href="#" class="list-group-item" location="addUnion">添加集合</a>
   <a href="#" class="list-group-item" location="listUnion">集合列表</a>
+  <a href="#" class="list-group-item" location="allocateSchool">校额到校</a>
 </div>
 <script>
 	$(document).ready(
