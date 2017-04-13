@@ -245,8 +245,9 @@ public class APIController {
 		}
 	}
 	@RequestMapping(value="/quotaAllocation")
-	 public @ResponseBody Object quotaAllocation(HttpServletRequest request,
+	 public @ResponseBody Object quotaAllocation(HttpServletRequest request,HttpServletResponse response,
 			 @RequestParam(value = "districtName", required = true) String districtName){
+		response.addHeader("Access-Control-Allow-Origin", "*");
 		ResultBean resultBean = new ResultBean();
 		List<Object> list = allocateSchoolService.selectByDNameWithSchool(districtName);
 		if (list == null && list.isEmpty()){

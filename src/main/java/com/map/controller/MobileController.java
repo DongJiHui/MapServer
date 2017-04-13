@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.map.pojo.School;
 import com.map.service.SchoolService;
 
@@ -29,16 +28,15 @@ public class MobileController {
     		,@RequestParam(value = "lng", required = false) Double lng
     		,@RequestParam(value = "lat", required = false) Double lat
     		,@RequestParam(value = "zoom", required = false) Integer zoom){ 
-	    String sdata="";
 	    List<Object> ds= schoolService.listAll();
 	    Gson gson =new Gson();
 	    List<Map> list = new ArrayList<Map>();
-	    for(Object obj: ds)
-	    {
+	    for(Object obj: ds){
 	    	School temp = (School)obj;
 	      String data= temp.getsMiddlepoint(); // 鑾峰彇缁忕含搴﹀彉閲忥紙x,y锛�
-	      Map map = new HashMap<String,String>();  
+	      Map<String,Object> map = new HashMap<String,Object>();  
 	      Map pointMap  = gson.fromJson(data,Map.class);
+	      if (pointMap == null) continue;
 	      map.put("lng", pointMap.get("lng"));
 	      map.put("lat", pointMap.get("lat"));
 	     String score = temp.getsScore();
